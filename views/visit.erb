@@ -20,9 +20,9 @@
   <div class="form-group">
     <label>Ваш парикмахер</label>
     <select name="master" class="form-select" aria-label="Default select example">
-      <option value="Walter White">Walter White</option>
-      <option value="Jessie Pinkman">Jessie Pinkman</option>
-      <option value="Gus Fring">Gus Fring</option>
+      <option <%= @master == 'Walter White' ? 'selected' : '' %> value="Walter White">Walter White</option>
+      <option <%= @master == 'Jessie Pinkman' ? 'selected' : '' %> value="Jessie Pinkman">Jessie Pinkman</option>
+      <option <%= @master == 'Gus Fring' ? 'selected': '' %> value="Gus Fring">Gus Fring</option>
     </select>
   </div>
 
