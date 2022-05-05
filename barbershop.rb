@@ -103,7 +103,8 @@ post '/visit' do
         erb :message
 end
 
-get '/' do
+get '/showusers' do
+  @users = get_db
   erb :showusers
 end
 

@@ -1,0 +1,4 @@
+<h1>Users</h1>
+  <% @users.execute 'select * from Users' do |row| %>
+    <li><%= "#{row['username']} записался на #{row['datastamp']}" %></li>
+  <% end %>
