@@ -100,3 +100,7 @@ post '/visit' do
 
         erb :message
 end
+
+not_found do
+  erb :not_found
+end
