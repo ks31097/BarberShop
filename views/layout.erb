@@ -57,7 +57,7 @@
                              Админ страницы
                            </a>
                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                             <li><a class="dropdown-item" href="/showusers">Клиенты</a></li>
+                             <li><a class="dropdown-item" href="/showusers">Список клиентов</a></li>
                              <li><a class="dropdown-item" href="/barbers">Мастера</a></li>
                            </ul>
                          </li>
@@ -69,7 +69,7 @@
           </nav>
 
             <div>
-              <%if @error then %>
+              <%if @error && @error.length > 0 then %> <!-- Проверка на наличие ошибки, по умолчаниб ошибка (@error) задана в barbershop.rb, длина @error = 0 -->
                   <div class="alert alert-danger" role="alert"><%= @error %></div>
               <% end %>
               <%= yield %>
