@@ -9,12 +9,32 @@ def get_db
   return db
 end
 
+def is_barber_exists? db, name
+  db.execute('select * from Barbers where name=?', [name]).length > 0
+end
+
+def seed_db db, barbers
+  barbers.each do |barber|
+    if !is_barber_exists? db, barber
+      db.execute 'insert into Barbers (name) values (?)', [barber]
+    end
+  end
+end
+
+before do
+  db = get_db
+  @barbers = db.execute 'select * from Barbers'
+end
+
 configure do
   db = get_db
   db.execute 'CREATE TABLE IF NOT EXISTS
       "Users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT,
       "username" TEXT, "phone" TEXT, "datastamp" TEXT,
       "master" TEXT, "color" TEXT);'
+
+  db.execute 'CREATE TABLE IF NOT EXISTS "Barbers" ("id" INTEGER PRIMARY KEY AUTOINCREMENT, "name" TEXT);'
+  seed_db db, ['Jessie Pinkman', 'Walter White', 'Gus Fring', 'Mike Ehrmantraut']
 end
 
 get '/' do
@@ -90,7 +110,7 @@ post '/visit' do
 =end
 
         # Вариант №2
-        @error = hash_error.select {|key,_| params[key] == ""}.values.join(" ")
+         @error = hash_error.select {|key,_| params[key] == ""}.values.join(" ")
 
         if @error != ''
           return erb :visit
@@ -105,7 +125,13 @@ end
 
 get '/showusers' do
   @users = get_db
+  db = get_db
+  @results = db.execute 'select * from Users order by id desc'
   erb :showusers
+end
+
+get '/barbers' do
+  erb :barbers
 end
 
 not_found do

@@ -2,3 +2,29 @@
   <% @users.execute 'select * from Users' do |row| %>
     <li><%= "#{row['username']} записался на #{row['datastamp']}" %></li>
   <% end %>
+
+<h1>Вывод @results</h1>
+<%= @results %>
+<h1>Вывод @results в виде таблицы</h1>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Имя</th>
+        <th>Телефон</th>
+        <th>Дата записи</th>
+        <th>Парикмахер</th>
+        <th>Цвет</th>
+      </tr>
+    </thead>
+    <% @results.each do |row|%>
+    <tbody>
+        <tr>
+          <td><%= row['username'] %></td>
+          <td><%= row['phone'] %></td>
+          <td><%= row['datastamp'] %></td>
+          <td><%= row['master'] %></td>
+          <td><%= row['color'] %></td>
+        </tr>
+    </tbody>
+    <% end %>
+  </table>
